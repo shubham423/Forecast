@@ -1,13 +1,13 @@
-package com.example.weatherforecast.ui.notifications
+package com.example.weatherforecast.ui.futureweather
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SettingsViewModel : ViewModel() {
+class FutureWeatherViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is settings Fragment"
+        value = "This is future weather Fragment"
     }
     val text: LiveData<String> = _text
 }
