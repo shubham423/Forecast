@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/activity_main.xml" value="0.359375" />
+        <entry key="..\:/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/fragment_future_weather.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/fragment_today_weather.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/WeatherForecast/app/src/main/res/menu/bottom_nav_menu.xml" value="0.359375" />
       </map>
     </option>
   </component>
