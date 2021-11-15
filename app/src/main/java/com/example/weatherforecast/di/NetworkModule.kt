@@ -22,20 +22,20 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHttpClientBuilder(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+    fun provideHttpClientBuilder(): OkHttpClient =
         OkHttpClient.Builder()
             .readTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(60, TimeUnit.SECONDS)
             .addInterceptor(ChuckerInterceptor(WeatherForecastApp.applicationContext()))
-            .addInterceptor(loggingInterceptor)
             .build()
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit =
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient.newBuilder().build())
             .build()
 
     @Provides
