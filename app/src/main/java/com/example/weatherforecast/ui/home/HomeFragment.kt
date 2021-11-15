@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.weatherforecast.databinding.FragmentHomeBinding
@@ -36,6 +37,7 @@ class HomeFragment : Fragment() {
 
     private fun initObservers() {
         viewmodel.weatherResponse.observe(viewLifecycleOwner){
+            it.body()?.let { it1 -> updateLocation(it1.name) }
             Log.d("HomeFragment","${it.body()}")
             binding.address.text= it.body()?.name +","+ (it.body()?.sys?.country ?: "")
             binding.temp.text= it.body()?.main?.temp.toString()+"°C"
@@ -59,6 +61,11 @@ class HomeFragment : Fragment() {
 
 
         }
+    }
+
+    private fun updateLocation(city: String) {
+        (activity as? AppCompatActivity)?.supportActionBar?.title = city
+        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Today"
     }
 
     override fun onDestroyView() {
