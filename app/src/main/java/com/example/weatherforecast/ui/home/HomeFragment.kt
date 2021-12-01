@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
 
             when(it){
                 is Resource.Success -> {
-
+                    binding.progressBar.visibility=View.INVISIBLE
                     it.data?.let { it1 -> updateLocation(it1.name) }
                     Log.d("HomeFragment","${it.data}")
                     binding.address.text= it.data?.name +","+ (it.data?.sys?.country ?: "")
@@ -67,7 +67,7 @@ class HomeFragment : Fragment() {
 
                 }
                 is Resource.Loading -> {
-
+                    binding.progressBar.visibility=View.VISIBLE
                 }
                 is Resource.Error -> {
 
