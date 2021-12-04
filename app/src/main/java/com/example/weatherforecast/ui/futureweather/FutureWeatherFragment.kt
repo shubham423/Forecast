@@ -33,12 +33,15 @@ class FutureWeatherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewmodel.getWeatherDataByCityName("delhi")
         initObservers()
+        viewmodel.getWeatherDataByCityName("delhi")
+
     }
 
     private fun initObservers() {
+        Log.d("requireActivity()","inside init observber")
         viewmodel.weatherResponse.observe(viewLifecycleOwner){
+            Log.d("requireActivity()","inside observ")
             when(it){
                 is Resource.Success -> {
                     Log.d("requireActivity()","${it.data?.weather}")
@@ -47,9 +50,12 @@ class FutureWeatherFragment : Fragment() {
                     binding.recyclerView.adapter=futureWeatherAdapter
                 }
                 is Resource.Loading -> {
+                    Log.d("requireActivity()","inside loading")
                 }
 
-                is Resource.Error -> { }
+                is Resource.Error -> {
+                    Log.d("requireActivity()","inside error")
+                }
             }
         }
     }

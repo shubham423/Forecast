@@ -67,9 +67,11 @@ class HomeFragment : Fragment() {
 
                 }
                 is Resource.Loading -> {
+                    Log.d("requireActivity()","inside loading")
                     binding.progressBar.visibility=View.VISIBLE
                 }
                 is Resource.Error -> {
+                    Log.d("requireActivity()","inside error")
                     binding.progressBar.visibility=View.GONE
                 }
             }

@@ -17,9 +17,4 @@
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_future_weather" />
 
-    <fragment
-        android:id="@+id/navigation_settings"
-        android:name="com.example.weatherforecast.ui.settings.SettingsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_settings" />
 </navigation>

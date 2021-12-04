@@ -11,9 +11,4 @@
         android:icon="@drawable/ic_breeze"
         android:title="@string/title_future_weather" />
 
-    <item
-        android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/title_settings" />
-
 </menu>
