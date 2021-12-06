@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.weatherforecast.R
 import com.example.weatherforecast.databinding.FragmentHomeBinding
 import com.example.weatherforecast.util.Resource
+import com.example.weatherforecast.util.getDateTime
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -72,6 +73,7 @@ class HomeFragment : Fragment() {
 
                 when (it) {
                     is Resource.Success -> {
+                        it.data?.coord?.let { it1 -> viewmodel.getWeeklyWeather(it.data?.coord?.lat, it1.lon) }
                         binding.progressBar.visibility = View.GONE
                         it.data?.let { it1 -> updateLocation(it1.name) }
                         Log.d("HomeFragment", "${it.data}")
@@ -117,16 +119,6 @@ class HomeFragment : Fragment() {
             (activity as? AppCompatActivity)?.supportActionBar?.title = city
             (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Today"
         }
-
-    private fun getDateTime(s: String): String? {
-        try {
-            val sdf = SimpleDateFormat("MM/dd/yyyy")
-            val netDate = Date(s.toLong() * 1000)
-            return sdf.format(netDate)
-        } catch (e: Exception) {
-            return e.toString()
-        }
-    }
 
         override fun onDestroyView() {
             super.onDestroyView()

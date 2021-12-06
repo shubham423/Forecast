@@ -3,14 +3,16 @@ package com.example.weatherforecast.ui.futureweather
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.weatherforecast.data.models.network.Daily
 import com.example.weatherforecast.data.models.network.Weather
 import com.example.weatherforecast.databinding.ItemFutureWeatherBinding
+import com.example.weatherforecast.util.getDateTime
 
 class FutureWeatherAdapter: RecyclerView.Adapter<FutureWeatherAdapter.ViewHolder>() {
 
-    private var list: List<Weather>?=null
+    private var list: List<Daily>?=null
 
-    fun setData(list: List<Weather>){
+    fun setData(list: List<Daily>){
         this.list=list
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,10 +31,12 @@ class FutureWeatherAdapter: RecyclerView.Adapter<FutureWeatherAdapter.ViewHolder
     }
 
     class ViewHolder(private val binding: ItemFutureWeatherBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(weather: Weather?) {
-            binding.apply {
-                textViewTemperature.text=weather?.main
-                textViewCondition.text=weather?.description
+        fun bind(weather: Daily?) {
+            if (weather != null) {
+                binding.textViewTemperature.text=weather.temp.day.toString()
+                binding.textViewCondition.text=weather.weather[0].main
+                binding.textViewDate.text= getDateTime(weather.dt.toString())
+
             }
         }
 

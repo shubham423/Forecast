@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherforecast.data.models.network.WeatherDataResponse
+import com.example.weatherforecast.data.models.network.WeeklyForecasteResponse
 import com.example.weatherforecast.data.repository.WeatherRepository
 import com.example.weatherforecast.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +21,9 @@ class HomeViewModel @Inject constructor(
 
     private val _weatherResponse = MutableLiveData<Resource<WeatherDataResponse>>()
     val weatherResponse: LiveData<Resource<WeatherDataResponse>> = _weatherResponse
+
+    private val _weeklyWeatherResponse = MutableLiveData<Resource<WeeklyForecasteResponse>>()
+    val weeklyWeatherResponse: LiveData<Resource<WeeklyForecasteResponse>> = _weeklyWeatherResponse
 
     fun getWeatherDataByCityName(city: String) {
         viewModelScope.launch {
@@ -39,4 +43,23 @@ class HomeViewModel @Inject constructor(
 
         }
     }
+
+    fun getWeeklyWeather(lat:Float,long: Float) {
+        viewModelScope.launch {
+            // Coroutine that will be canceled when the ViewModel is cleared.
+            _weatherResponse.postValue(Resource.Loading())
+            viewModelScope.launch {
+                val response = weatherRepository.getWeatherWeekly(lat,long,"current,minutely,hourly","imperial")
+                if (response.isSuccessful) {
+                    _weeklyWeatherResponse.postValue(Resource.Success(response.body()!!))
+                }else{
+                    _weeklyWeatherResponse.postValue(Resource.Error(response.errorBody().toString()))
+
+                }
+            }
+
+        }
+    }
+
+
 }
