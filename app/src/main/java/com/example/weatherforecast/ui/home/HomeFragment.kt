@@ -2,15 +2,16 @@ package com.example.weatherforecast.ui.home
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.weatherforecast.R
 import com.example.weatherforecast.databinding.FragmentHomeBinding
 import com.example.weatherforecast.util.Resource
+import com.example.weatherforecast.util.showTempDisplaySettingDialog
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,68 +36,92 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewmodel.getWeatherDataByCityName("delhi")
 
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                viewmodel.getWeatherDataByCityName(query)
-                return false
-            }
-            override fun onQueryTextChange(newText: String): Boolean {
-                return false
-            }
-        })
+        setHasOptionsMenu(true)
         initObservers()
+
     }
 
-    private fun initObservers() {
-        viewmodel.weatherResponse.observe(viewLifecycleOwner){
 
-            when(it){
-                is Resource.Success -> {
-                    binding.progressBar.visibility=View.GONE
-                    it.data?.let { it1 -> updateLocation(it1.name) }
-                    Log.d("HomeFragment","${it.data}")
-                    binding.address.text= it.data?.name +","+ (it.data?.sys?.country ?: "")
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        val inflater: MenuInflater = inflater
+        inflater.inflate(R.menu.settings_menu, menu)
 
-                    binding.temp.text= it.data?.main?.temp?.minus(273.15).toString()+ "°C"
-                    binding.status.text= it.data?.weather?.get(0)?.description ?: ""
-                    binding.updatedAt.text="Updated at: "+ SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(
-                        (it.data?.dt)?.times(1000)?.toLong()?.let { it1 ->
-                            Date(
-                                it1
-                            )
-                        })
+        val search = menu.findItem(R.id.appSearchBar)
+        val searchView = search.actionView as SearchView
 
-                    binding.tempMin.text="Min Temp: " + (it.data?.main?.tempMin ?: "") +"°C"
-                    binding.tempMax.text="Max Temp: " + (it.data?.main?.tempMax ?: "") +"°C"
-                    binding.pressure.text= it.data?.main?.pressure.toString()
-                    binding.humidity.text= it.data?.main?.humidity.toString()
-
-                    binding.sunrise.text= it.data?.sys?.sunrise.toString()
-                    binding.sunset.text= it.data?.sys?.sunset.toString()
-
-                    binding.wind.text= it.data?.wind?.speed.toString()
-
-
+        val searchItem: MenuItem = menu.findItem(R.id.appSearchBar)
+        if (searchItem != null) {
+           searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    Log.d("query", "query submit called")
+                    if (query != null) {
+                        viewmodel.getWeatherDataByCityName(query)
+                    }
+                    return true
                 }
-                is Resource.Loading -> {
-                    Log.d("requireActivity()","inside loading")
-                    binding.progressBar.visibility=View.VISIBLE
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    Log.d("query", "query change called")
+                    return true
                 }
-                is Resource.Error -> {
-                    Log.d("requireActivity()","inside error")
-                    binding.progressBar.visibility=View.GONE
-                }
-            }
+            })
         }
     }
 
-    private fun updateLocation(city: String) {
-        (activity as? AppCompatActivity)?.supportActionBar?.title = city
-        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Today"
-    }
+        private fun initObservers() {
+            viewmodel.weatherResponse.observe(viewLifecycleOwner) {
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+                when (it) {
+                    is Resource.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        it.data?.let { it1 -> updateLocation(it1.name) }
+                        Log.d("HomeFragment", "${it.data}")
+                        binding.address.text = it.data?.name + "," + (it.data?.sys?.country ?: "")
+
+                        binding.temp.text = it.data?.main?.temp?.minus(273.15)?.toInt().toString() + "°C"
+                        binding.status.text = it.data?.weather?.get(0)?.description ?: ""
+                        binding.updatedAt.text = "Updated at: " + SimpleDateFormat(
+                            "dd/MM/yyyy hh:mm a",
+                            Locale.ENGLISH
+                        ).format(
+                            (it.data?.dt)?.times(1000)?.toLong()?.let { it1 ->
+                                Date(
+                                    it1
+                                )
+                            })
+
+                        binding.tempMin.text = "Min Temp: " + (it.data?.main?.tempMin?.minus(273)?.toInt() ?: "") + "°C"
+                        binding.tempMax.text = "Max Temp: " + (it.data?.main?.tempMax?.minus(273)?.toInt() ?: "") + "°C"
+                        binding.pressure.text = it.data?.main?.pressure.toString()
+                        binding.humidity.text = it.data?.main?.humidity.toString()
+
+                        binding.sunrise.text = it.data?.sys?.sunrise.toString()
+                        binding.sunset.text = it.data?.sys?.sunset.toString()
+
+                        binding.wind.text = it.data?.wind?.speed.toString()
+
+
+                    }
+                    is Resource.Loading -> {
+                        Log.d("requireActivity()", "inside loading")
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                    is Resource.Error -> {
+                        Log.d("requireActivity()", "inside error")
+                        binding.progressBar.visibility = View.GONE
+                    }
+                }
+            }
+        }
+
+        private fun updateLocation(city: String) {
+            (activity as? AppCompatActivity)?.supportActionBar?.title = city
+            (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Today"
+        }
+
+        override fun onDestroyView() {
+            super.onDestroyView()
+            _binding = null
+        }
     }
-}

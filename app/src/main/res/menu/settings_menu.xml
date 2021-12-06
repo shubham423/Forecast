@@ -5,4 +5,10 @@
         android:id="@+id/tempDisplaySetting"
         android:title="Display Units" />
 
+    <item
+        android:id="@+id/appSearchBar"
+        android:icon="@drawable/ic_search"
+        android:title="Search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="ifRoom|withText" />
 </menu>
