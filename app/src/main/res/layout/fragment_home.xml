@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Clear Sky"
+            tools:text="Clear Sky"
             android:textColor="#FFFFFF"
             android:textSize="18dp" />
 
@@ -87,9 +87,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="sans-serif-thin"
-            android:text="9.21°C"
+            tools:text="9.21°C"
             android:textColor="#FFFFFF"
-            android:textSize="90dp" />
+            android:textSize="32dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,7 +101,7 @@
                 android:id="@+id/temp_min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Min Temp: 6.52°C"
+                tools:text="Min Temp: 6.52°C"
                 android:textColor="#FFFFFF" />
 
             <Space
@@ -112,7 +112,7 @@
                 android:id="@+id/temp_max"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Max Temp: 12.32°C"
+                tools:text="Max Temp: 12.32°C"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
 
@@ -166,7 +166,7 @@
                     android:id="@+id/sunrise"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="07:30 AM"
+                    tools:text="07:30 AM"
                     android:textColor="#FFFFFF"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -244,7 +244,7 @@
                     android:id="@+id/wind"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3.89"
+                    tools:text="3.89"
                     android:textColor="#FFFFFF"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -290,7 +290,7 @@
                     android:id="@+id/pressure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1050"
+                    tools:text="1050"
                     android:textColor="#FFFFFF"
                     android:textSize="14dp" />
             </LinearLayout>
