@@ -5,13 +5,11 @@ import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.weatherforecast.R
 import com.example.weatherforecast.databinding.FragmentHomeBinding
 import com.example.weatherforecast.util.Resource
-import com.example.weatherforecast.util.showTempDisplaySettingDialog
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -91,13 +89,13 @@ class HomeFragment : Fragment() {
                                 )
                             })
 
-                        binding.tempMin.text = "Min Temp: " + (it.data?.main?.tempMin?.minus(273)?.toInt() ?: "") + "°C"
+                        binding.tempMin.text = "Min Temp: " + (it.data?.main?.tempMin?.minus(272)?.toInt() ?: "") + "°C"
                         binding.tempMax.text = "Max Temp: " + (it.data?.main?.tempMax?.minus(273)?.toInt() ?: "") + "°C"
                         binding.pressure.text = it.data?.main?.pressure.toString()
                         binding.humidity.text = it.data?.main?.humidity.toString()
 
-                        binding.sunrise.text = it.data?.sys?.sunrise.toString()
-                        binding.sunset.text = it.data?.sys?.sunset.toString()
+                        binding.sunrise.text = getDateTime(it.data?.sys?.sunrise.toString())
+                        binding.sunset.text = getDateTime(it.data?.sys?.sunset.toString())
 
                         binding.wind.text = it.data?.wind?.speed.toString()
 
@@ -119,6 +117,16 @@ class HomeFragment : Fragment() {
             (activity as? AppCompatActivity)?.supportActionBar?.title = city
             (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Today"
         }
+
+    private fun getDateTime(s: String): String? {
+        try {
+            val sdf = SimpleDateFormat("MM/dd/yyyy")
+            val netDate = Date(s.toLong() * 1000)
+            return sdf.format(netDate)
+        } catch (e: Exception) {
+            return e.toString()
+        }
+    }
 
         override fun onDestroyView() {
             super.onDestroyView()
