@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -33,6 +34,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewmodel.getWeatherDataByCityName("delhi")
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                viewmodel.getWeatherDataByCityName(query)
+                return false
+            }
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+        })
         initObservers()
     }
 
@@ -45,7 +56,7 @@ class HomeFragment : Fragment() {
                     it.data?.let { it1 -> updateLocation(it1.name) }
                     Log.d("HomeFragment","${it.data}")
                     binding.address.text= it.data?.name +","+ (it.data?.sys?.country ?: "")
-                    binding.temp.text= it.data?.main?.temp.toString()+"°C"
+                    binding.temp.text= it.data?.main?.temp.toString()+"°F"
                     binding.status.text= it.data?.weather?.get(0)?.description ?: ""
                     binding.updatedAt.text="Updated at: "+ SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(
                         (it.data?.dt)?.times(1000)?.toLong()?.let { it1 ->

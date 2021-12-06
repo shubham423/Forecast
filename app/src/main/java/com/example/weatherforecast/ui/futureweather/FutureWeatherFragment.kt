@@ -39,9 +39,9 @@ class FutureWeatherFragment : Fragment() {
     }
 
     private fun initObservers() {
-        Log.d("requireActivity()","inside init observber")
+        Log.d("requireActivity()","inside init observver")
         viewmodel.weatherResponse.observe(viewLifecycleOwner){
-            Log.d("requireActivity()","inside observ")
+            Log.d("requireActivity()","inside observer")
             when(it){
                 is Resource.Success -> {
                     Log.d("requireActivity()","${it.data?.weather}")

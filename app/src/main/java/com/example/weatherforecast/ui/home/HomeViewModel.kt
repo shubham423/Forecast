@@ -1,5 +1,6 @@
 package com.example.weatherforecast.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,13 +24,16 @@ class HomeViewModel @Inject constructor(
     fun getWeatherDataByCityName(city: String) {
         viewModelScope.launch {
             // Coroutine that will be canceled when the ViewModel is cleared.
+            Log.d("Viewmodel","call being made inside viewmodel")
             _weatherResponse.postValue(Resource.Loading())
             viewModelScope.launch {
                 val response = weatherRepository.getWeatherByCityName(city)
                 if (response.isSuccessful) {
-                    Resource.Success(response.body())
+                    Log.d("Viewmodel","call being made inside sucesfful response")
+                    _weatherResponse.postValue(Resource.Success(response.body()!!))
                 }else{
-                    Resource.Error(response.errorBody().toString())
+                    _weatherResponse.postValue(Resource.Error(response.errorBody().toString()))
+                    Log.d("Viewmodel","call being made with error body")
                 }
             }
 
