@@ -1,7 +1,6 @@
 package com.example.weatherforecast.data.repository
 
 import com.example.weatherforecast.data.models.network.WeatherDataResponse
-import com.example.weatherforecast.data.models.network.WeeklyForecasteResponse
 import com.example.weatherforecast.data.network.WeatherApi
 import retrofit2.Response
 import javax.inject.Inject

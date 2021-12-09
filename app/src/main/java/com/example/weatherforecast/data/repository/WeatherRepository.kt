@@ -1,7 +1,6 @@
 package com.example.weatherforecast.data.repository
 
 import com.example.weatherforecast.data.models.network.WeatherDataResponse
-import com.example.weatherforecast.data.models.network.WeeklyForecasteResponse
 import retrofit2.Response
 
 interface WeatherRepository {

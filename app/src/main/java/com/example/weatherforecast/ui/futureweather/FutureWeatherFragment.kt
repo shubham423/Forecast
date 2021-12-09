@@ -42,15 +42,18 @@ class FutureWeatherFragment : Fragment() {
 
             when(it){
                 is Resource.Success -> {
+                    binding.progressBar2.visibility=View.GONE
                     futureWeatherAdapter=FutureWeatherAdapter()
                     it.data?.let { it1 -> futureWeatherAdapter.setData(it1.daily) }
                     binding.recyclerView.adapter=futureWeatherAdapter
                 }
                 is Resource.Loading -> {
+                    binding.progressBar2.visibility=View.VISIBLE
                     Log.d("requireActivity()","inside loading")
                 }
 
                 is Resource.Error -> {
+                    binding.progressBar2.visibility=View.GONE
                     Log.d("requireActivity()","inside error")
                 }
             }

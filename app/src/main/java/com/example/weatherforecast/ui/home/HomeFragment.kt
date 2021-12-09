@@ -18,7 +18,7 @@ import java.util.*
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private val viewmodel: HomeViewModel by activityViewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -33,8 +33,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewmodel.getWeatherDataByCityName("delhi")
-
+        viewModel.getWeatherDataByCityName("delhi")
         setHasOptionsMenu(true)
         initObservers()
 
@@ -55,7 +54,7 @@ class HomeFragment : Fragment() {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     Log.d("query", "query submit called")
                     if (query != null) {
-                        viewmodel.getWeatherDataByCityName(query)
+                        viewModel.getWeatherDataByCityName(query)
                     }
                     return true
                 }
@@ -69,12 +68,12 @@ class HomeFragment : Fragment() {
     }
 
         private fun initObservers() {
-            viewmodel.weatherResponse.observe(viewLifecycleOwner) {
+            viewModel.weatherResponse.observe(viewLifecycleOwner) {
 
                 when (it) {
                     is Resource.Success -> {
-                        it.data?.coord?.let { it1 -> viewmodel.getWeeklyWeather(it.data?.coord?.lat, it1.lon) }
                         binding.progressBar.visibility = View.GONE
+                        it.data?.coord?.let { it1 -> viewModel.getWeeklyWeather(it.data?.coord?.lat, it1.lon) }
                         it.data?.let { it1 -> updateLocation(it1.name) }
                         Log.d("HomeFragment", "${it.data}")
                         binding.address.text = it.data?.name + "," + (it.data?.sys?.country ?: "")
@@ -100,12 +99,10 @@ class HomeFragment : Fragment() {
                         binding.sunset.text = getDateTime(it.data?.sys?.sunset.toString())
 
                         binding.wind.text = it.data?.wind?.speed.toString()
-
-
                     }
                     is Resource.Loading -> {
                         Log.d("requireActivity()", "inside loading")
-                        binding.progressBar.visibility = View.VISIBLE
+                        binding.progressBar.visibility=View.VISIBLE
                     }
                     is Resource.Error -> {
                         Log.d("requireActivity()", "inside error")

@@ -1,7 +1,6 @@
 package com.example.weatherforecast.data.network
 
 import com.example.weatherforecast.data.models.network.WeatherDataResponse
-import com.example.weatherforecast.data.models.network.WeeklyForecasteResponse
 import com.example.weatherforecast.util.Constants.API_KEY_VALUE
 import retrofit2.Response
 import retrofit2.http.GET

@@ -6,12 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherforecast.data.models.network.WeatherDataResponse
-import com.example.weatherforecast.data.models.network.WeeklyForecasteResponse
 import com.example.weatherforecast.data.repository.WeatherRepository
 import com.example.weatherforecast.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -54,7 +52,6 @@ class HomeViewModel @Inject constructor(
                     _weeklyWeatherResponse.postValue(Resource.Success(response.body()!!))
                 }else{
                     _weeklyWeatherResponse.postValue(Resource.Error(response.errorBody().toString()))
-
                 }
             }
 
