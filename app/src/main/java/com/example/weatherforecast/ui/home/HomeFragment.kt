@@ -22,6 +22,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var hourlyWeatherAdapter: HourlyWeatherAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -107,6 +109,25 @@ class HomeFragment : Fragment() {
                     is Resource.Error -> {
                         Log.d("requireActivity()", "inside error")
                         binding.progressBar.visibility = View.GONE
+                    }
+                }
+            }
+
+            viewModel.weeklyWeatherResponse.observe(viewLifecycleOwner){
+
+                when(it){
+                    is Resource.Success -> {
+                        hourlyWeatherAdapter= HourlyWeatherAdapter()
+                        hourlyWeatherAdapter.setData(it.data?.hourly)
+                        binding.hourlyRv.adapter=hourlyWeatherAdapter
+
+                    }
+                    is Resource.Loading -> {
+                        //to nothing
+                    }
+
+                    is Resource.Error -> {
+                        Log.d("requireActivity()","inside error")
                     }
                 }
             }

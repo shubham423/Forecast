@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.weatherforecast.data.models.network.Daily
 import com.example.weatherforecast.databinding.FragmentFutureWeatherBinding
 import com.example.weatherforecast.ui.home.HomeViewModel
 import com.example.weatherforecast.util.Resource
@@ -44,7 +45,7 @@ class FutureWeatherFragment : Fragment() {
                 is Resource.Success -> {
                     binding.progressBar2.visibility=View.GONE
                     futureWeatherAdapter=FutureWeatherAdapter()
-                    it.data?.let { it1 -> futureWeatherAdapter.setData(it1.daily) }
+                    it.data?.let { it1 -> futureWeatherAdapter.setData(it1.daily as List<Daily>) }
                     binding.recyclerView.adapter=futureWeatherAdapter
                 }
                 is Resource.Loading -> {

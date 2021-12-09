@@ -1,5 +1,6 @@
 package com.example.weatherforecast.data.repository
 
+import com.example.weatherforecast.data.models.network.FutureWeatherResponse
 import com.example.weatherforecast.data.models.network.WeatherDataResponse
 import com.example.weatherforecast.data.network.WeatherApi
 import retrofit2.Response
@@ -15,7 +16,7 @@ class WeatherRepositoryImpl @Inject constructor(private val api : WeatherApi) : 
         long: Float,
         exclude: String,
         units: String
-    ): Response<WeeklyForecasteResponse> {
+    ): Response<FutureWeatherResponse> {
         return api.sevenDayForecast(lat,long,exclude,units)
     }
 

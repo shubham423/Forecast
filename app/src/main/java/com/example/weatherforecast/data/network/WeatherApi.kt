@@ -1,5 +1,6 @@
 package com.example.weatherforecast.data.network
 
+import com.example.weatherforecast.data.models.network.FutureWeatherResponse
 import com.example.weatherforecast.data.models.network.WeatherDataResponse
 import com.example.weatherforecast.util.Constants.API_KEY_VALUE
 import retrofit2.Response
@@ -20,5 +21,5 @@ interface WeatherApi {
         @Query("exclude") exclude: String,
         @Query("units") units: String,
         @Query("appid") apiKey: String=API_KEY_VALUE
-    ) : Response<WeeklyForecasteResponse>
+    ) : Response<FutureWeatherResponse>
 }

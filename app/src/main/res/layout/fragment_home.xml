@@ -48,10 +48,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/detailsContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,9 +61,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            tools:text="Clear Sky"
             android:textColor="#FFFFFF"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            tools:text="Clear Sky" />
 
         <TextView
             android:id="@+id/temp"
@@ -72,23 +71,23 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="sans-serif-thin"
-            tools:text="9.21°C"
             android:textColor="#FFFFFF"
-            android:textSize="32dp" />
+            android:textSize="32dp"
+            tools:text="9.21°C" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingVertical="16dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingVertical="16dp">
 
             <TextView
                 android:id="@+id/temp_min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Min Temp: 6.52°C"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                tools:text="Min Temp: 6.52°C" />
 
             <Space
                 android:layout_width="50dp"
@@ -98,8 +97,8 @@
                 android:id="@+id/temp_max"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Max Temp: 12.32°C"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                tools:text="Max Temp: 12.32°C" />
         </LinearLayout>
 
     </LinearLayout>
@@ -109,12 +108,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/overviewContainer">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -152,9 +151,9 @@
                     android:id="@+id/sunrise"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="07:30 AM"
                     android:textColor="#FFFFFF"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    tools:text="07:30 AM" />
             </LinearLayout>
 
             <Space
@@ -230,9 +229,9 @@
                     android:id="@+id/wind"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="3.89"
                     android:textColor="#FFFFFF"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    tools:text="3.89" />
             </LinearLayout>
         </LinearLayout>
 
@@ -276,9 +275,9 @@
                     android:id="@+id/pressure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="1050"
                     android:textColor="#FFFFFF"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    tools:text="1050" />
             </LinearLayout>
 
             <Space
@@ -381,4 +380,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hourly_rv"
+        android:layout_width="409dp"
+        android:layout_height="289dp"
+        android:layout_marginTop="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailsContainer" />
+</androidx.constraintlayout.widget.ConstraintLayout>
