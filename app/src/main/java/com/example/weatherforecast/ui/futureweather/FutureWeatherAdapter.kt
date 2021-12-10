@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherforecast.data.models.network.Daily
-import com.example.weatherforecast.data.models.network.Weather
 import com.example.weatherforecast.databinding.ItemFutureWeatherBinding
 import com.example.weatherforecast.util.getDateTime
 
@@ -33,6 +32,7 @@ class FutureWeatherAdapter: RecyclerView.Adapter<FutureWeatherAdapter.ViewHolder
     class ViewHolder(private val binding: ItemFutureWeatherBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(weather: Daily?) {
             if (weather != null) {
+
                 binding.textViewTemperature.text=weather.temp.day.toString()
                 binding.textViewCondition.text=weather.weather[0].main
                 binding.textViewDate.text= getDateTime(weather.dt.toString())

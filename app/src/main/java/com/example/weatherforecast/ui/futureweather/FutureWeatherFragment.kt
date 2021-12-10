@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.weatherforecast.data.models.network.Daily
 import com.example.weatherforecast.databinding.FragmentFutureWeatherBinding
 import com.example.weatherforecast.ui.home.HomeViewModel
 import com.example.weatherforecast.util.Resource
@@ -38,14 +37,14 @@ class FutureWeatherFragment : Fragment() {
     }
 
     private fun initObservers() {
-        Log.d("requireActivity()","inside init observver")
+        Log.d("requireActivity()","inside init observer")
         viewmodel.weeklyWeatherResponse.observe(viewLifecycleOwner){
 
             when(it){
                 is Resource.Success -> {
                     binding.progressBar2.visibility=View.GONE
                     futureWeatherAdapter=FutureWeatherAdapter()
-                    it.data?.let { it1 -> futureWeatherAdapter.setData(it1.daily as List<Daily>) }
+                    it.data?.let { it1 -> futureWeatherAdapter.setData(it1.daily) }
                     binding.recyclerView.adapter=futureWeatherAdapter
                 }
                 is Resource.Loading -> {

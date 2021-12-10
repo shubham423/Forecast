@@ -10,10 +10,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.weatherforecast.R
 import com.example.weatherforecast.databinding.FragmentHomeBinding
 import com.example.weatherforecast.util.Resource
-import com.example.weatherforecast.util.getDateTime
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
-import java.util.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -74,41 +71,42 @@ class HomeFragment : Fragment() {
 
                 when (it) {
                     is Resource.Success -> {
-                        binding.progressBar.visibility = View.GONE
-                        it.data?.coord?.let { it1 -> viewModel.getWeeklyWeather(it.data?.coord?.lat, it1.lon) }
-                        it.data?.let { it1 -> updateLocation(it1.name) }
-                        Log.d("HomeFragment", "${it.data}")
-                        binding.address.text = it.data?.name + "," + (it.data?.sys?.country ?: "")
 
-                        binding.temp.text = it.data?.main?.temp?.minus(273.15)?.toInt().toString() + "°C"
-                        binding.status.text = it.data?.weather?.get(0)?.description ?: ""
-                        binding.updatedAt.text = "Updated at: " + SimpleDateFormat(
-                            "dd/MM/yyyy hh:mm a",
-                            Locale.ENGLISH
-                        ).format(
-                            (it.data?.dt)?.times(1000)?.toLong()?.let { it1 ->
-                                Date(
-                                    it1
-                                )
-                            })
+                        it.data?.lat?.let { it1 -> viewModel.getWeeklyWeather(it1.toFloat(),it.data.lon.toFloat()) }
+                        it.data?.current?.weather?.get(0)?.let { it1 -> updateLocation(it1.main) }
 
-                        binding.tempMin.text = "Min Temp: " + (it.data?.main?.tempMin?.minus(272)?.toInt() ?: "") + "°C"
-                        binding.tempMax.text = "Max Temp: " + (it.data?.main?.tempMax?.minus(273)?.toInt() ?: "") + "°C"
-                        binding.pressure.text = it.data?.main?.pressure.toString()
-                        binding.humidity.text = it.data?.main?.humidity.toString()
-
-                        binding.sunrise.text = getDateTime(it.data?.sys?.sunrise.toString())
-                        binding.sunset.text = getDateTime(it.data?.sys?.sunset.toString())
-
-                        binding.wind.text = it.data?.wind?.speed.toString()
+//                       it.data.current.weather[0].
+//                        Log.d("HomeFragment", "${it.data}")
+//                        binding.address.text = it.data?.name + "," + (it.data?.sys?.country ?: "")
+//
+//                        binding.temp.text = it.data?.main?.temp?.minus(273.15)?.toInt().toString() + "°C"
+//                        binding.status.text = it.data?.weather?.get(0)?.description ?: ""
+//                        binding.updatedAt.text = "Updated at: " + SimpleDateFormat(
+//                            "dd/MM/yyyy hh:mm a",
+//                            Locale.ENGLISH
+//                        ).format(
+//                            (it.data?.dt)?.times(1000)?.toLong()?.let { it1 ->
+//                                Date(
+//                                    it1
+//                                )
+//                            })
+//
+//                        binding.tempMin.text = "Min Temp: " + (it.data?.main?.tempMin?.minus(272)?.toInt() ?: "") + "°C"
+//                        binding.tempMax.text = "Max Temp: " + (it.data?.main?.tempMax?.minus(273)?.toInt() ?: "") + "°C"
+//                        binding.pressure.text = it.data?.main?.pressure.toString()
+//                        binding.humidity.text = it.data?.main?.humidity.toString()
+//
+//                        binding.sunrise.text = getDateTime(it.data?.sys?.sunrise.toString())
+//                        binding.sunset.text = getDateTime(it.data?.sys?.sunset.toString())
+//
+//                        binding.wind.text = it.data?.wind?.speed.toString()
                     }
                     is Resource.Loading -> {
                         Log.d("requireActivity()", "inside loading")
-                        binding.progressBar.visibility=View.VISIBLE
+
                     }
                     is Resource.Error -> {
                         Log.d("requireActivity()", "inside error")
-                        binding.progressBar.visibility = View.GONE
                     }
                 }
             }

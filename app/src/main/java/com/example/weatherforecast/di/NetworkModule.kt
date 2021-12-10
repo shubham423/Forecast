@@ -1,5 +1,6 @@
 package com.example.weatherforecast.di
 
+import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.weatherforecast.WeatherForecastApp
 import com.example.weatherforecast.data.network.WeatherApi
@@ -26,7 +27,14 @@ object NetworkModule {
         OkHttpClient.Builder()
             .readTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(60, TimeUnit.SECONDS)
-            .addInterceptor(ChuckerInterceptor(WeatherForecastApp.applicationContext()))
+            .addInterceptor(
+                ChuckerInterceptor.Builder(WeatherForecastApp.applicationContext())
+                    .collector(ChuckerCollector(WeatherForecastApp.applicationContext()))
+                    .maxContentLength(250000L)
+                    .redactHeaders(emptySet())
+                    .alwaysReadResponseBody(false)
+                    .build()
+            )
             .build()
 
     @Provides

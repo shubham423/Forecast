@@ -3,7 +3,7 @@ package com.example.weatherforecast.ui.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherforecast.data.models.network.FutureWeatherResponse.Hourly
+import com.example.weatherforecast.data.models.network.Hourly
 import com.example.weatherforecast.databinding.ItemHourBinding
 import com.example.weatherforecast.util.getDateTime
 
