@@ -10,7 +10,10 @@ import androidx.fragment.app.activityViewModels
 import com.example.weatherforecast.R
 import com.example.weatherforecast.databinding.FragmentHomeBinding
 import com.example.weatherforecast.util.Resource
+import com.example.weatherforecast.util.getDateTime
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -75,31 +78,32 @@ class HomeFragment : Fragment() {
                         it.data?.lat?.let { it1 -> viewModel.getWeeklyWeather(it1.toFloat(),it.data.lon.toFloat()) }
                         it.data?.current?.weather?.get(0)?.let { it1 -> updateLocation(it1.main) }
 
-//                       it.data.current.weather[0].
-//                        Log.d("HomeFragment", "${it.data}")
-//                        binding.address.text = it.data?.name + "," + (it.data?.sys?.country ?: "")
-//
-//                        binding.temp.text = it.data?.main?.temp?.minus(273.15)?.toInt().toString() + "°C"
-//                        binding.status.text = it.data?.weather?.get(0)?.description ?: ""
+                        Log.d("HomeFragment", "${it.data}")
+                        binding.address.text = ((it.data?.daily?.get(0)?.temp ?: "") as CharSequence?)
+
+                        binding.temp.text = it.data?.daily?.get(0)?.temp?.day?.minus(273.15)?.toInt().toString() + "°C"
+                        binding.status.text = it.data?.current?.weather?.get(0)?.description ?: ""
 //                        binding.updatedAt.text = "Updated at: " + SimpleDateFormat(
 //                            "dd/MM/yyyy hh:mm a",
 //                            Locale.ENGLISH
 //                        ).format(
-//                            (it.data?.dt)?.times(1000)?.toLong()?.let { it1 ->
+//                            (it.data?.current?.dt)?.times(1000)?.toLong()?.let { it1 ->
 //                                Date(
 //                                    it1
 //                                )
 //                            })
-//
-//                        binding.tempMin.text = "Min Temp: " + (it.data?.main?.tempMin?.minus(272)?.toInt() ?: "") + "°C"
-//                        binding.tempMax.text = "Max Temp: " + (it.data?.main?.tempMax?.minus(273)?.toInt() ?: "") + "°C"
-//                        binding.pressure.text = it.data?.main?.pressure.toString()
-//                        binding.humidity.text = it.data?.main?.humidity.toString()
-//
-//                        binding.sunrise.text = getDateTime(it.data?.sys?.sunrise.toString())
-//                        binding.sunset.text = getDateTime(it.data?.sys?.sunset.toString())
-//
-//                        binding.wind.text = it.data?.wind?.speed.toString()
+
+                        binding.tempMin.text = "Min Temp: " + (it.data?.daily?.get(0)?.temp?.min?.minus(272)
+                            ?.toInt() ?: "") + "°C"
+                        binding.tempMax.text = "Max Temp: " + (it.data?.daily?.get(0)?.temp?.min?.minus(273)
+                            ?.toInt() ?: "") + "°C"
+                        binding.pressure.text = it.data?.daily?.get(0)?.pressure.toString()
+                        binding.humidity.text = it.data?.daily?.get(0)?.humidity.toString()
+
+                        binding.sunrise.text = getDateTime(it.data?.daily?.get(0)?.sunrise.toString())
+                        binding.sunset.text = getDateTime(it.data?.daily?.get(0)?.sunset.toString())
+
+                        binding.wind.text = it.data?.daily?.get(0)?.windSpeed.toString()
                     }
                     is Resource.Loading -> {
                         Log.d("requireActivity()", "inside loading")

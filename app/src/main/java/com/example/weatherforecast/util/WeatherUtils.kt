@@ -32,6 +32,6 @@ fun showTempDisplaySettingDialog(context: Context) {
         val netDate = Date(s.toLong() * 1000)
         return sdf.format(netDate)
     } catch (e: Exception) {
-        return e.toString()
+        return ""
     }
 }
