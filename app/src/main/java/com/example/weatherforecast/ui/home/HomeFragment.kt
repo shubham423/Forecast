@@ -11,6 +11,7 @@ import com.example.weatherforecast.R
 import com.example.weatherforecast.databinding.FragmentHomeBinding
 import com.example.weatherforecast.util.Resource
 import com.example.weatherforecast.util.getDateTime
+import com.example.weatherforecast.util.getIconResources
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -74,36 +75,24 @@ class HomeFragment : Fragment() {
 
                 when (it) {
                     is Resource.Success -> {
+                        it.apply {
+                            binding.weatherInText.text = data?.name
+                            binding.dateText.text = currentSystemTime()
+                            binding.weatherTemperature.text = data?.main?.temp?.toString() + "°C"
+                            binding.weatherMinMax.text =
+                                data?.main?.tempMin.toString() + "°C" + "/" + data?.main?.tempMax.toString() + "°C"
+                            binding.weatherMain.text = data?.weather?.get(0)?.description
+                            binding.humidityText.text = data?.main?.humidity.toString() + "%"
+                            binding.pressureText.text = data?.main?.pressure.toString() + "hPa"
+                            binding.windSpeedText.text = data?.wind?.speed.toString() + "m/s"
+                            context?.let {
+                                binding.weatherIcon.getIconResources(
+                                    it,
+                                    data?.weather?.get(0)?.description
+                                )
+                            }
+                        }
 
-                        it.data?.lat?.let { it1 -> viewModel.getWeeklyWeather(it1.toFloat(),it.data.lon.toFloat()) }
-                        it.data?.current?.weather?.get(0)?.let { it1 -> updateLocation(it1.main) }
-
-                        Log.d("HomeFragment", "${it.data}")
-                        binding.address.text = ((it.data?.daily?.get(0)?.temp ?: "") as CharSequence?)
-
-                        binding.temp.text = it.data?.daily?.get(0)?.temp?.day?.minus(273.15)?.toInt().toString() + "°C"
-                        binding.status.text = it.data?.current?.weather?.get(0)?.description ?: ""
-//                        binding.updatedAt.text = "Updated at: " + SimpleDateFormat(
-//                            "dd/MM/yyyy hh:mm a",
-//                            Locale.ENGLISH
-//                        ).format(
-//                            (it.data?.current?.dt)?.times(1000)?.toLong()?.let { it1 ->
-//                                Date(
-//                                    it1
-//                                )
-//                            })
-
-                        binding.tempMin.text = "Min Temp: " + (it.data?.daily?.get(0)?.temp?.min?.minus(272)
-                            ?.toInt() ?: "") + "°C"
-                        binding.tempMax.text = "Max Temp: " + (it.data?.daily?.get(0)?.temp?.min?.minus(273)
-                            ?.toInt() ?: "") + "°C"
-                        binding.pressure.text = it.data?.daily?.get(0)?.pressure.toString()
-                        binding.humidity.text = it.data?.daily?.get(0)?.humidity.toString()
-
-                        binding.sunrise.text = getDateTime(it.data?.daily?.get(0)?.sunrise.toString())
-                        binding.sunset.text = getDateTime(it.data?.daily?.get(0)?.sunset.toString())
-
-                        binding.wind.text = it.data?.daily?.get(0)?.windSpeed.toString()
                     }
                     is Resource.Loading -> {
                         Log.d("requireActivity()", "inside loading")
@@ -111,25 +100,6 @@ class HomeFragment : Fragment() {
                     }
                     is Resource.Error -> {
                         Log.d("requireActivity()", "inside error")
-                    }
-                }
-            }
-
-            viewModel.weeklyWeatherResponse.observe(viewLifecycleOwner){
-
-                when(it){
-                    is Resource.Success -> {
-                        hourlyWeatherAdapter= HourlyWeatherAdapter()
-                        hourlyWeatherAdapter.setData(it.data?.hourly)
-                        binding.hourlyRv.adapter=hourlyWeatherAdapter
-
-                    }
-                    is Resource.Loading -> {
-                        //to nothing
-                    }
-
-                    is Resource.Error -> {
-                        Log.d("requireActivity()","inside error")
                     }
                 }
             }
@@ -144,4 +114,11 @@ class HomeFragment : Fragment() {
             super.onDestroyView()
             _binding = null
         }
+
+    fun currentSystemTime(): String {
+        val currentTime = System.currentTimeMillis()
+        val date = Date(currentTime)
+        val dateFormat = SimpleDateFormat("EEEE MMM d, hh:mm aaa")
+        return dateFormat.format(date)
+    }
     }

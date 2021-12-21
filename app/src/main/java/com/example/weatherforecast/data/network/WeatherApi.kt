@@ -1,5 +1,6 @@
 package com.example.weatherforecast.data.network
 
+import com.example.weatherforecast.data.models.network.CurrentWeatherResponse
 import com.example.weatherforecast.data.models.network.WeatherResponse
 import com.example.weatherforecast.util.Constants.API_KEY_VALUE
 import retrofit2.Response
@@ -11,7 +12,7 @@ interface WeatherApi {
     suspend fun findCityWeatherData(
         @Query("q") q: String,
         @Query("appid") appid: String = API_KEY_VALUE
-    ): Response<WeatherResponse>
+    ): Response<CurrentWeatherResponse>
 
     @GET("/data/2.5/onecall")
     suspend fun sevenDayForecast(
@@ -20,4 +21,12 @@ interface WeatherApi {
         @Query("units") units: String,
         @Query("appid") apiKey: String=API_KEY_VALUE
     ) : Response<WeatherResponse>
+
+//    @GET("weather")
+//    suspend fun getWeatherByLocation(
+//        @Query("lat")
+//        latitude: String,
+//        @Query("lon")
+//        longitude: String
+//    ): Response<ResponseWeather>
 }

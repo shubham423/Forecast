@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weatherforecast.data.models.network.CurrentWeatherResponse
 import com.example.weatherforecast.data.models.network.WeatherResponse
 import com.example.weatherforecast.data.repository.WeatherRepository
 import com.example.weatherforecast.util.Resource
@@ -17,8 +18,8 @@ class HomeViewModel @Inject constructor(
     private val weatherRepository: WeatherRepository
 ) : ViewModel() {
 
-    private val _weatherResponse = MutableLiveData<Resource<WeatherResponse>>()
-    val weatherResponse: LiveData<Resource<WeatherResponse>> = _weatherResponse
+    private val _weatherResponse = MutableLiveData<Resource<CurrentWeatherResponse>>()
+    val weatherResponse: LiveData<Resource<CurrentWeatherResponse>> = _weatherResponse
 
     private val _weeklyWeatherResponse = MutableLiveData<Resource<WeatherResponse>>()
     val weeklyWeatherResponse: LiveData<Resource<WeatherResponse>> = _weeklyWeatherResponse
