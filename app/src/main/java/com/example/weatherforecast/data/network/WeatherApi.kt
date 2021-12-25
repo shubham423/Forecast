@@ -22,11 +22,5 @@ interface WeatherApi {
         @Query("appid") apiKey: String=API_KEY_VALUE
     ) : Response<WeatherResponse>
 
-//    @GET("weather")
-//    suspend fun getWeatherByLocation(
-//        @Query("lat")
-//        latitude: String,
-//        @Query("lon")
-//        longitude: String
-//    ): Response<ResponseWeather>
+
 }

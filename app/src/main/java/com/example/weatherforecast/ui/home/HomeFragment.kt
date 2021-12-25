@@ -13,6 +13,7 @@ import com.example.weatherforecast.util.Resource
 import com.example.weatherforecast.util.getDateTime
 import com.example.weatherforecast.util.getIconResources
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -53,7 +54,7 @@ class HomeFragment : Fragment() {
 
         val searchItem: MenuItem = menu.findItem(R.id.appSearchBar)
         if (searchItem != null) {
-           searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     Log.d("query", "query submit called")
                     if (query != null) {
@@ -70,50 +71,67 @@ class HomeFragment : Fragment() {
         }
     }
 
-        private fun initObservers() {
-            viewModel.weatherResponse.observe(viewLifecycleOwner) {
+    private fun initObservers() {
+        viewModel.weatherResponse.observe(viewLifecycleOwner) {
 
-                when (it) {
-                    is Resource.Success -> {
-                        it.apply {
-                            binding.weatherInText.text = data?.name
-                            binding.dateText.text = currentSystemTime()
-                            binding.weatherTemperature.text = data?.main?.temp?.toString() + "°C"
-                            binding.weatherMinMax.text =
-                                data?.main?.tempMin.toString() + "°C" + "/" + data?.main?.tempMax.toString() + "°C"
-                            binding.weatherMain.text = data?.weather?.get(0)?.description
-                            binding.humidityText.text = data?.main?.humidity.toString() + "%"
-                            binding.pressureText.text = data?.main?.pressure.toString() + "hPa"
-                            binding.windSpeedText.text = data?.wind?.speed.toString() + "m/s"
-                            context?.let {
-                                binding.weatherIcon.getIconResources(
-                                    it,
-                                    data?.weather?.get(0)?.description
-                                )
-                            }
+            when (it) {
+                is Resource.Success -> {
+                    it.apply {
+                        binding.weatherInText.text = data?.name
+                        binding.dateText.text = currentSystemTime()
+                        binding.weatherTemperature.text = data?.main?.temp?.let { it1 ->
+                            convertCelsiusToFahrenheit(
+                                it1
+                            )
+                        }
+                        binding.weatherMinMax.text =
+                            data?.main?.tempMin.toString() + "°C" + "/" + data?.main?.tempMax.toString() + "°C"
+                        binding.weatherMain.text = data?.weather?.get(0)?.description
+                        binding.humidityText.text = data?.main?.humidity.toString() + "%"
+                        binding.pressureText.text = data?.main?.pressure.toString() + "hPa"
+                        binding.windSpeedText.text = data?.wind?.speed.toString() + "m/s"
+                        context?.let {
+                            binding.weatherIcon.getIconResources(
+                                it,
+                                data?.weather?.get(0)?.description
+                            )
                         }
 
-                    }
-                    is Resource.Loading -> {
-                        Log.d("requireActivity()", "inside loading")
+                        data?.coord?.lat?.toFloat()?.let { it1 -> viewModel.getWeeklyWeather(it1,data.coord.lon.toFloat()) }
 
                     }
-                    is Resource.Error -> {
-                        Log.d("requireActivity()", "inside error")
-                    }
+
+                }
+                is Resource.Loading -> {
+                    Log.d("requireActivity()", "inside loading")
+
+                }
+                is Resource.Error -> {
+                    Log.d("requireActivity()", "inside error")
                 }
             }
         }
+    }
 
-        private fun updateLocation(city: String) {
-            (activity as? AppCompatActivity)?.supportActionBar?.title = city
-            (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Today"
+    private fun updateLocation(city: String) {
+        (activity as? AppCompatActivity)?.supportActionBar?.title = city
+        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Today"
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    fun convertCelsiusToFahrenheit(celsius: Double): String {
+        val f =  DecimalFormat().run {
+            applyPattern(".##")
+            parse(format(celsius.times(1.8).plus(32))).toDouble()
         }
 
-        override fun onDestroyView() {
-            super.onDestroyView()
-            _binding = null
-        }
+        return "$f°F"
+
+    }
 
     fun currentSystemTime(): String {
         val currentTime = System.currentTimeMillis()
@@ -121,4 +139,4 @@ class HomeFragment : Fragment() {
         val dateFormat = SimpleDateFormat("EEEE MMM d, hh:mm aaa")
         return dateFormat.format(date)
     }
-    }
+}
