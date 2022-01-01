@@ -1,12 +1,16 @@
 package com.example.weatherforecast.ui.home
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherforecast.data.models.network.Daily
 import com.example.weatherforecast.databinding.ItemWeeklyForecastBinding
+import com.example.weatherforecast.util.getDateTimeFormatted
+import com.example.weatherforecast.util.getIconResources
+import com.example.weatherforecast.util.getTemp
 
-class FutureWeatherAdapter: RecyclerView.Adapter<FutureWeatherAdapter.ViewHolder>() {
+class FutureWeatherAdapter(val context: Context): RecyclerView.Adapter<FutureWeatherAdapter.ViewHolder>() {
 
     private var list: List<Daily>?=null
 
@@ -20,8 +24,7 @@ class FutureWeatherAdapter: RecyclerView.Adapter<FutureWeatherAdapter.ViewHolder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list?.get(position))
-
+        holder.bind(list?.get(position),context)
     }
 
     override fun getItemCount(): Int {
@@ -29,13 +32,15 @@ class FutureWeatherAdapter: RecyclerView.Adapter<FutureWeatherAdapter.ViewHolder
     }
 
     class ViewHolder(private val binding: ItemWeeklyForecastBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(weather: Daily?) {
+        fun bind(weather: Daily?, context: Context) {
             if (weather != null) {
-
-//                binding.textViewTemperature.text=weather.temp.day.toString()
-//                binding.textViewCondition.text=weather.weather[0].main
-//                binding.textViewDate.text= getDateTime(weather.dt.toString())
-
+//                binding.date.text= getDateTimeFormatted(weather.dt.toString())
+                binding.highTemp.text= getTemp(weather.temp.max.toInt())
+                binding.lowTemp.text= getTemp(weather.temp.min.toInt())
+                binding.icon.getIconResources(
+                    context = context,
+                    weather?.weather?.get(0)?.description
+                )
             }
         }
 

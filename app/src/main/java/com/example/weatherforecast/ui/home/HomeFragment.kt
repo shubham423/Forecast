@@ -22,6 +22,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var hourlyWeatherAdapter: HourlyWeatherAdapter
+    private lateinit var futureWeatherAdapter: FutureWeatherAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,6 +92,13 @@ class HomeFragment : Fragment() {
                             hourlyWeatherAdapter.setData(data.hourly)
                         }
                         binding.rvHourlyForecast.adapter=hourlyWeatherAdapter
+
+                        futureWeatherAdapter= FutureWeatherAdapter(requireContext())
+                        if (data != null) {
+                            futureWeatherAdapter.setData(data.daily)
+                        }
+                        binding.rvDaily.adapter=futureWeatherAdapter
+
                     }
 
                 }

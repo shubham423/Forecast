@@ -28,16 +28,6 @@ fun showTempDisplaySettingDialog(context: Context) {
     dialogBuilder.show()
 }
 
- fun getDateTime(s: String): String? {
-    try {
-        val sdf = SimpleDateFormat("MM/dd/yyyy")
-        val netDate = Date(s.toLong() * 1000)
-        return sdf.format(netDate)
-    } catch (e: Exception) {
-        return ""
-    }
-}
-
 fun WeatherIconView.getIconResources(context: Context, condition: String?) {
     if (condition != null) {
         when {
@@ -129,7 +119,5 @@ fun getDateTimeFormatted(s: String): String? {
 }
 
 fun getTemp(temp: Int): String {
-
     return temp?.toString() + "°C"
-
 }
