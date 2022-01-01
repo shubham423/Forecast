@@ -3,17 +3,13 @@ package com.example.weatherforecast.ui.home
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.weatherforecast.R
 import com.example.weatherforecast.databinding.FragmentHomeBinding
 import com.example.weatherforecast.util.Resource
-import com.example.weatherforecast.util.getDateTime
 import com.example.weatherforecast.util.getIconResources
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -37,55 +33,30 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getWeatherDataByLatLong("28.6894", "77.2819", "standard")
         viewModel.getWeatherDataByCityName("delhi")
-        setHasOptionsMenu(true)
         initObservers()
 
     }
 
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        val inflater: MenuInflater = inflater
-        inflater.inflate(R.menu.settings_menu, menu)
-
-        val search = menu.findItem(R.id.appSearchBar)
-        val searchView = search.actionView as SearchView
-
-        val searchItem: MenuItem = menu.findItem(R.id.appSearchBar)
-        if (searchItem != null) {
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    Log.d("query", "query submit called")
-                    if (query != null) {
-                        viewModel.getWeatherDataByCityName(query)
-                    }
-                    return true
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    Log.d("query", "query change called")
-                    return true
-                }
-            })
-        }
-    }
-
     private fun initObservers() {
-        viewModel.weatherResponse.observe(viewLifecycleOwner) {
+        viewModel.currentWeatherResponse.observe(viewLifecycleOwner) {
 
             when (it) {
                 is Resource.Success -> {
                     it.apply {
                         binding.weatherInText.text = data?.name
                         binding.dateText.text = currentSystemTime()
-                        binding.weatherTemperature.text = data?.main?.temp?.let { it1 ->
-                            convertCelsiusToFahrenheit(
-                                it1
-                            )
-                        }
+                        binding.weatherTemperature.text =
+                            data?.main?.temp?.minus(273)?.toInt()?.let { it1 -> getTemp(it1) }
                         binding.weatherMinMax.text =
-                            data?.main?.tempMin.toString() + "°C" + "/" + data?.main?.tempMax.toString() + "°C"
+                            data?.main?.tempMax?.minus(273)?.let { it1 -> getTemp(it1.toInt()) } + "/" + data?.main?.tempMin?.minus(
+                                273
+                            )?.let { it1 ->
+                                getTemp(
+                                    it1.toInt()
+                                )
+                            }
                         binding.weatherMain.text = data?.weather?.get(0)?.description
                         binding.humidityText.text = data?.main?.humidity.toString() + "%"
                         binding.pressureText.text = data?.main?.pressure.toString() + "hPa"
@@ -96,9 +67,6 @@ class HomeFragment : Fragment() {
                                 data?.weather?.get(0)?.description
                             )
                         }
-
-                        data?.coord?.lat?.toFloat()?.let { it1 -> viewModel.getWeeklyWeather(it1,data.coord.lon.toFloat()) }
-
                     }
 
                 }
@@ -123,13 +91,9 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    fun convertCelsiusToFahrenheit(celsius: Double): String {
-        val f =  DecimalFormat().run {
-            applyPattern(".##")
-            parse(format(celsius.times(1.8).plus(32))).toDouble()
-        }
+    fun getTemp(temp: Int): String {
 
-        return "$f°F"
+        return temp?.toString() + "°C"
 
     }
 
@@ -139,4 +103,6 @@ class HomeFragment : Fragment() {
         val dateFormat = SimpleDateFormat("EEEE MMM d, hh:mm aaa")
         return dateFormat.format(date)
     }
+
+
 }

@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigatio_future_weather, R.id.navigatio_future_weather
+                R.id.homeFragment, R.id.savedLocationsFragment,R.id.settingsFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle item selection
         return when (item.itemId) {
             R.id.tempDisplaySetting -> {
                 showTempDisplaySettingDialog(this)

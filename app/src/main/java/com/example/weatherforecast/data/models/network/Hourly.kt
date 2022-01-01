@@ -15,21 +15,19 @@ data class Hourly(
     @SerializedName("humidity")
     val humidity: Int,
     @SerializedName("pop")
-    val pop: Double,
+    val pop: Int,
     @SerializedName("pressure")
-    val pressure: Double,
-    @SerializedName("rain")
-    val rain: Rain,
+    val pressure: Int,
     @SerializedName("temp")
     val temp: Double,
     @SerializedName("uvi")
     val uvi: Double,
     @SerializedName("visibility")
-    val visibility: Double,
+    val visibility: Int,
     @SerializedName("weather")
     val weather: List<Weather>,
     @SerializedName("wind_deg")
-    val windDeg: Double,
+    val windDeg: Int,
     @SerializedName("wind_gust")
     val windGust: Double,
     @SerializedName("wind_speed")

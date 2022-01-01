@@ -2,13 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigatio_future_weather"
+        android:id="@+id/savedLocationsFragment"
         android:icon="@drawable/ic_breeze"
-        android:title="@string/title_future_weather" />
+        android:title="Saved Weather" />
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/title_settings" />
 
 </menu>

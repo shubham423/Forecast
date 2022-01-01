@@ -21,7 +21,7 @@ data class Daily(
     @SerializedName("moonset")
     val moonset: Int,
     @SerializedName("pop")
-    val pop: Double,
+    val pop: Int,
     @SerializedName("pressure")
     val pressure: Int,
     @SerializedName("rain")
