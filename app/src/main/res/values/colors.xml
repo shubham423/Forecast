@@ -10,4 +10,6 @@
     <color name="card_icons_color">#0F538F</color>
     <color name="text_color">#000000</color>
     <color name="primary">#040b14</color>
+    <color name="background">#202428</color>
+    <color name="less_white">#ABB3BB</color>
 </resources>
