@@ -35,8 +35,8 @@ class FutureWeatherAdapter(val context: Context): RecyclerView.Adapter<FutureWea
         fun bind(weather: Daily?, context: Context) {
             if (weather != null) {
 //                binding.date.text= getDateTimeFormatted(weather.dt.toString())
-                binding.highTemp.text= getTemp(weather.temp.max.toInt())
-                binding.lowTemp.text= getTemp(weather.temp.min.toInt())
+                binding.highTemp.text= getTemp(weather.temp.max.toInt().minus(273))
+                binding.lowTemp.text= getTemp(weather.temp.min.toInt().minus(273))
                 binding.icon.getIconResources(
                     context = context,
                     weather?.weather?.get(0)?.description
