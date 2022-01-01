@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/navigation_home">
-
     <fragment
-        android:id="@+id/navigatio_future_weather"
-        android:name="com.example.weatherforecast.ui.futureweather.FutureWeatherFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/homeFragment"
         android:name="com.example.weatherforecast.ui.home.HomeFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_future_weather" />
-
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/savedLocationsFragment"
+        android:name="com.example.weatherforecast.ui.saved.SavedLocationsFragment"
+        android:label="fragment_saved_locations"
+        tools:layout="@layout/fragment_saved_locations" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.weatherforecast.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

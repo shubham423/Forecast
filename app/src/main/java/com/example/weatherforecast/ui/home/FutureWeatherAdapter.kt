@@ -1,11 +1,10 @@
-package com.example.weatherforecast.ui.futureweather
+package com.example.weatherforecast.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherforecast.data.models.network.Daily
-import com.example.weatherforecast.databinding.ItemFutureWeatherBinding
-import com.example.weatherforecast.util.getDateTime
+import com.example.weatherforecast.databinding.ItemWeeklyForecastBinding
 
 class FutureWeatherAdapter: RecyclerView.Adapter<FutureWeatherAdapter.ViewHolder>() {
 
@@ -15,7 +14,7 @@ class FutureWeatherAdapter: RecyclerView.Adapter<FutureWeatherAdapter.ViewHolder
         this.list=list
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemFutureWeatherBinding
+        val binding = ItemWeeklyForecastBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return  ViewHolder(binding)
     }
@@ -29,13 +28,13 @@ class FutureWeatherAdapter: RecyclerView.Adapter<FutureWeatherAdapter.ViewHolder
         return list!!.size
     }
 
-    class ViewHolder(private val binding: ItemFutureWeatherBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemWeeklyForecastBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(weather: Daily?) {
             if (weather != null) {
 
-                binding.textViewTemperature.text=weather.temp.day.toString()
-                binding.textViewCondition.text=weather.weather[0].main
-                binding.textViewDate.text= getDateTime(weather.dt.toString())
+//                binding.textViewTemperature.text=weather.temp.day.toString()
+//                binding.textViewCondition.text=weather.weather[0].main
+//                binding.textViewDate.text= getDateTime(weather.dt.toString())
 
             }
         }

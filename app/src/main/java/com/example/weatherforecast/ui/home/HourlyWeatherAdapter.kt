@@ -4,8 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherforecast.data.models.network.Hourly
-import com.example.weatherforecast.databinding.ItemHourBinding
-import com.example.weatherforecast.util.getDateTime
+import com.example.weatherforecast.databinding.ItemHourlyForecastBinding
 
 class HourlyWeatherAdapter: RecyclerView.Adapter<HourlyWeatherAdapter.ViewHolder>()
 {
@@ -17,16 +16,16 @@ class HourlyWeatherAdapter: RecyclerView.Adapter<HourlyWeatherAdapter.ViewHolder
     }
 
 
-    class ViewHolder(private val binding: ItemHourBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemHourlyForecastBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(hourly: Hourly?) {
-            binding.tvTemp.text= hourly?.temp?.toInt().toString()
-            binding.tvTime.text= getDateTime(hourly?.dt.toString())
+//            binding.tvTemp.text= hourly?.temp?.toInt().toString()
+//            binding.tvTime.text= getDateTime(hourly?.dt.toString())
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemHourBinding
+        val binding = ItemHourlyForecastBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }

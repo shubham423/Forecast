@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-     android:layout_height="match_parent"
-     android:background="@color/background"
-     android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ui.home.HomeFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
@@ -107,8 +106,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:background="@color/primary"
-                android:backgroundTint="@color/primary"
+                android:background="@color/less_white"
+                android:backgroundTint="@color/less_white"
                 app:layout_constraintTop_toBottomOf="@id/weather_main" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -149,7 +148,7 @@
                     app:layout_constraintStart_toEndOf="@id/imageView11"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_wind"
-                    app:tint="@color/white" />
+                    app:tint="@color/less_white" />
 
                 <TextView
                     android:id="@+id/textView10"
@@ -227,16 +226,36 @@
     </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_hourly_forecast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        tools:listitem="@layout/item_hourly_forecast"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+        tools:listitem="@layout/item_hourly_forecast">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rectangular_bg"
+        android:backgroundTint="@color/background_light"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_hourly_forecast"
+        tools:listitem="@layout/item_weekly_forecast" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
