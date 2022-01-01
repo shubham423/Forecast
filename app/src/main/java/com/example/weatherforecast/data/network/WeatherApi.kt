@@ -31,7 +31,8 @@ suspend fun getWeatherForecast(
     @Query("lon")
     longitude: String,
     @Query("units")
-    units: String
+    units: String,
+    @Query("appid") appid: String = API_KEY_VALUE
 ): Response<OneCallWeatherResponse>
 
 

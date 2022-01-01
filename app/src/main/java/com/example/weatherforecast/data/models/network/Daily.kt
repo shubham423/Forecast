@@ -5,31 +5,31 @@ import com.google.gson.annotations.SerializedName
 
 data class Daily(
     @SerializedName("clouds")
-    val clouds: Int,
+    val clouds: Double,
     @SerializedName("dew_point")
     val dewPoint: Double,
     @SerializedName("dt")
-    val dt: Int,
+    val dt: Double,
     @SerializedName("feels_like")
     val feelsLike: FeelsLike,
     @SerializedName("humidity")
-    val humidity: Int,
+    val humidity: Double,
     @SerializedName("moon_phase")
     val moonPhase: Double,
     @SerializedName("moonrise")
-    val moonrise: Int,
+    val moonrise: Double,
     @SerializedName("moonset")
-    val moonset: Int,
+    val moonset: Double,
     @SerializedName("pop")
-    val pop: Int,
+    val pop: Double,
     @SerializedName("pressure")
-    val pressure: Int,
+    val pressure: Double,
     @SerializedName("rain")
     val rain: Double,
     @SerializedName("sunrise")
-    val sunrise: Int,
+    val sunrise: Double,
     @SerializedName("sunset")
-    val sunset: Int,
+    val sunset: Double,
     @SerializedName("temp")
     val temp: Temp,
     @SerializedName("uvi")
@@ -37,7 +37,7 @@ data class Daily(
     @SerializedName("weather")
     val weather: List<Weather>,
     @SerializedName("wind_deg")
-    val windDeg: Int,
+    val windDeg: Double,
     @SerializedName("wind_gust")
     val windGust: Double,
     @SerializedName("wind_speed")

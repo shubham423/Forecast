@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.weatherforecast.databinding.FragmentHomeBinding
 import com.example.weatherforecast.util.Resource
 import com.example.weatherforecast.util.getIconResources
+import com.example.weatherforecast.util.getTemp
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,7 +34,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getWeatherDataByLatLong("28.6894", "77.2819", "standard")
+        viewModel.getWeatherDataByLatLong("28.689429027481445", "77.28186230476864", "standard")
         viewModel.getWeatherDataByCityName("delhi")
         initObservers()
 
@@ -79,6 +80,29 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+
+        viewModel.oneCallWeatherResponse.observe(viewLifecycleOwner) {
+
+            when (it) {
+                is Resource.Success -> {
+                    it.apply {
+                        hourlyWeatherAdapter= HourlyWeatherAdapter(requireContext())
+                        if (data != null) {
+                            hourlyWeatherAdapter.setData(data.hourly)
+                        }
+                        binding.rvHourlyForecast.adapter=hourlyWeatherAdapter
+                    }
+
+                }
+                is Resource.Loading -> {
+                    Log.d("requireActivity()", "inside loading")
+
+                }
+                is Resource.Error -> {
+                    Log.d("requireActivity()", "inside error")
+                }
+            }
+        }
     }
 
     private fun updateLocation(city: String) {
@@ -91,11 +115,7 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    fun getTemp(temp: Int): String {
 
-        return temp?.toString() + "°C"
-
-    }
 
     fun currentSystemTime(): String {
         val currentTime = System.currentTimeMillis()
