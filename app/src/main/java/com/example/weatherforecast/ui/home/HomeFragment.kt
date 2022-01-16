@@ -47,7 +47,6 @@ class HomeFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     binding.progressBar.visibility=View.GONE
-                    binding.scrollMain.visibility=View.VISIBLE
                     it.apply {
                         binding.weatherInText.text = data?.name
                         binding.dateText.text = currentSystemTime()
@@ -89,6 +88,8 @@ class HomeFragment : Fragment() {
 
             when (it) {
                 is Resource.Success -> {
+
+                    binding.shimmerFrameWeekly.visibility=View.GONE
                     it.apply {
                         hourlyWeatherAdapter= HourlyWeatherAdapter(requireContext())
                         if (data != null) {
@@ -111,6 +112,7 @@ class HomeFragment : Fragment() {
                 }
                 is Resource.Error -> {
                     Log.d("requireActivity()", "inside error")
+                    binding.shimmerFrameWeekly.visibility=View.GONE
                 }
             }
         }
@@ -128,7 +130,7 @@ class HomeFragment : Fragment() {
 
 
 
-    fun currentSystemTime(): String {
+    private fun currentSystemTime(): String {
         val currentTime = System.currentTimeMillis()
         val date = Date(currentTime)
         val dateFormat = SimpleDateFormat("EEEE MMM d, hh:mm aaa")

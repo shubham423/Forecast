@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ScrollView
         android:id="@+id/scroll_main"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_width="match_parent">
+        >
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -238,6 +238,37 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_frame_weekly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_hourly_forecast">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/item_weekly_forecast_shimmer" />
+
+                    <include layout="@layout/item_weekly_forecast_shimmer" />
+
+                    <include layout="@layout/item_weekly_forecast_shimmer" />
+
+                    <include layout="@layout/item_weekly_forecast_shimmer" />
+
+                    <include layout="@layout/item_weekly_forecast_shimmer" />
+
+                </LinearLayout>
+
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_daily"
                 android:layout_width="match_parent"
@@ -246,9 +277,9 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
-                android:nestedScrollingEnabled="false"
                 android:background="@drawable/rectangular_bg"
                 android:backgroundTint="@color/background_light"
+                android:nestedScrollingEnabled="false"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -258,6 +289,7 @@
                 tools:listitem="@layout/item_weekly_forecast" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
@@ -265,10 +297,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:background="@color/white"
-         />
-
-
+        android:background="@color/white" />
 </FrameLayout>
 
 
