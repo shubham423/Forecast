@@ -46,19 +46,21 @@ class HomeFragment : Fragment() {
 
             when (it) {
                 is Resource.Success -> {
+                    binding.progressBar.visibility=View.GONE
+                    binding.scrollMain.visibility=View.VISIBLE
                     it.apply {
                         binding.weatherInText.text = data?.name
                         binding.dateText.text = currentSystemTime()
                         binding.weatherTemperature.text =
                             data?.main?.temp?.minus(273)?.toInt()?.let { it1 -> getTemp(it1) }
-                        binding.weatherMinMax.text =
-                            data?.main?.tempMax?.minus(273)?.let { it1 -> getTemp(it1.toInt()) } + "/" + data?.main?.tempMin?.minus(
-                                273
-                            )?.let { it1 ->
-                                getTemp(
-                                    it1.toInt()
-                                )
-                            }
+//                        binding.weatherMinMax.text =
+//                            data?.main?.tempMax?.minus(273)?.let { it1 -> getTemp(it1.toInt()) } + "/" + data?.main?.tempMin?.minus(
+//                                273
+//                            )?.let { it1 ->
+//                                getTemp(
+//                                    it1.toInt()
+//                                )
+//                            }
                         binding.weatherMain.text = data?.weather?.get(0)?.description
                         binding.humidityText.text = data?.main?.humidity.toString() + "%"
                         binding.pressureText.text = data?.main?.pressure.toString() + "hPa"
@@ -77,6 +79,7 @@ class HomeFragment : Fragment() {
 
                 }
                 is Resource.Error -> {
+                    binding.progressBar.visibility=View.GONE
                     Log.d("requireActivity()", "inside error")
                 }
             }

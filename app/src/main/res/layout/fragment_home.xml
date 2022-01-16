@@ -1,268 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_width="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/background"
-        tools:context=".ui.home.HomeFragment">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView"
+    <ScrollView
+        android:id="@+id/scroll_main"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_width="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginHorizontal="@dimen/_8sdp"
-            android:layout_marginTop="16dp"
-            android:elevation="@dimen/_8sdp"
-            app:cardCornerRadius="@dimen/_8sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/background"
             tools:context=".ui.home.HomeFragment">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/background_light"
-                android:padding="@dimen/_8sdp"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/weather_in_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="Jaipur"
-                    android:textColor="@color/white"
-                    android:textSize="26sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Jaipur" />
-
-                <TextView
-                    android:id="@+id/date_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="Sunday May 16,06:12 PM"
-                    android:textColor="@color/less_white"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/weather_in_text"
-                    tools:text="Sunday May 16,06:12 PM" />
-
-                <com.github.pwittchen.weathericonview.WeatherIconView
-                    android:id="@+id/weather_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/date_text"
-                    app:weatherIconColor="@color/white"
-                    app:weatherIconResource="@string/wi_day_sunny"
-                    app:weatherIconSize="50" />
-
-                <TextView
-                    android:id="@+id/weather_temperature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="36°C"
-                    android:textColor="@color/white"
-                    android:textSize="46sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="36 °C" />
-
-                <TextView
-                    android:id="@+id/weather_main"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:text="Sunny"
-                    android:textColor="@color/less_white"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/weather_icon"
-                    tools:text="Sunny" />
-
-                <TextView
-                    android:id="@+id/weather_min_max"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:text="36°/27°"
-                    android:textColor="@color/less_white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@id/weather_temperature"
-                    app:layout_constraintStart_toStartOf="@id/weather_temperature"
-                    app:layout_constraintTop_toBottomOf="@+id/weather_temperature"
-                    tools:text="36°/27°" />
-
-                <View
-                    android:id="@+id/sep_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1dp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@color/less_white"
-                    android:backgroundTint="@color/less_white"
-                    app:layout_constraintTop_toBottomOf="@id/weather_main" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginTop="16dp"
+                android:elevation="@dimen/_8sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:context=".ui.home.HomeFragment">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/weather_det"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/sep_line">
+                    android:background="@color/background_light"
+                    android:padding="@dimen/_8sdp"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:id="@+id/imageView12"
+                    <TextView
+                        android:id="@+id/weather_in_text"
                         android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView11"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="Jaipur"
+                        android:textColor="@color/white"
+                        android:textSize="26sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_humidity"
-                        app:tint="@color/white" />
+                        tools:text="Jaipur" />
 
-                    <ImageView
-                        android:id="@+id/imageView11"
+                    <TextView
+                        android:id="@+id/date_text"
                         android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView10"
-                        app:layout_constraintStart_toEndOf="@id/imageView12"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:text="Sunday May 16,06:12 PM"
+                        android:textColor="@color/less_white"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/weather_in_text"
+                        tools:text="Sunday May 16,06:12 PM" />
+
+                    <com.github.pwittchen.weathericonview.WeatherIconView
+                        android:id="@+id/weather_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        app:layout_constraintEnd_toStartOf="@+id/weather_temperature"
+                        app:layout_constraintStart_toEndOf="@+id/date_text"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_pressure"
-                        app:tint="@color/white" />
+                        app:weatherIconColor="@color/white"
+                        app:weatherIconResource="@string/wi_day_sunny"
+                        app:weatherIconSize="50" />
 
-                    <ImageView
-                        android:id="@+id/imageView10"
+                    <TextView
+                        android:id="@+id/weather_temperature"
                         android:layout_width="wrap_content"
-                        android:layout_height="20dp"
+                        android:layout_height="wrap_content"
+                        android:text="36°C"
+                        android:textColor="@color/white"
+                        android:textSize="36sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/imageView11"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_wind"
-                        app:tint="@color/less_white" />
+                        tools:text="36 °C" />
 
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/weather_main"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
-                        android:text="Humidity"
+                        android:text="Sunny"
                         android:textColor="@color/less_white"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView12"
-                        app:layout_constraintStart_toStartOf="@+id/imageView12"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@+id/weather_icon"
+                        app:layout_constraintStart_toStartOf="@+id/weather_icon"
+                        app:layout_constraintTop_toBottomOf="@+id/weather_icon"
+                        tools:text="Sunny" />
 
-                    <TextView
-                        android:id="@+id/humidity_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="40%"
-                        android:textColor="@color/less_white"
-                        app:layout_constraintEnd_toEndOf="@+id/textView10"
-                        app:layout_constraintStart_toStartOf="@+id/textView10"
-                        app:layout_constraintTop_toBottomOf="@+id/textView10"
-                        tools:text="40%" />
+                    <View
+                        android:id="@+id/sep_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="@color/less_white"
+                        android:backgroundTint="@color/less_white"
+                        app:layout_constraintTop_toBottomOf="@id/weather_main" />
 
-                    <TextView
-                        android:id="@+id/textView12"
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/weather_det"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
-                        android:text="Pressure"
-                        android:textColor="@color/less_white"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView11"
-                        app:layout_constraintStart_toStartOf="@+id/imageView11"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/sep_line">
 
-                    <TextView
-                        android:id="@+id/pressure_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="1200hPa"
-                        android:textColor="@color/less_white"
-                        app:layout_constraintEnd_toEndOf="@+id/textView12"
-                        app:layout_constraintStart_toStartOf="@+id/textView12"
-                        app:layout_constraintTop_toBottomOf="@+id/textView12"
-                        tools:text="1740hPa" />
+                        <ImageView
+                            android:id="@+id/imageView12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            app:layout_constraintEnd_toStartOf="@+id/imageView11"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_humidity"
+                            app:tint="@color/white" />
 
-                    <TextView
-                        android:id="@+id/textView14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
-                        android:text="Wind speed"
-                        android:textColor="@color/less_white"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView10"
-                        app:layout_constraintStart_toStartOf="@+id/imageView10"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+                        <ImageView
+                            android:id="@+id/imageView11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            app:layout_constraintEnd_toStartOf="@+id/imageView10"
+                            app:layout_constraintStart_toEndOf="@id/imageView12"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_pressure"
+                            app:tint="@color/white" />
 
-                    <TextView
-                        android:id="@+id/wind_speed_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="30m/s"
-                        android:textColor="@color/less_white"
-                        app:layout_constraintEnd_toEndOf="@+id/textView14"
-                        app:layout_constraintStart_toStartOf="@+id/textView14"
-                        app:layout_constraintTop_toBottomOf="@+id/textView14"
-                        tools:text="30m/s" />
+                        <ImageView
+                            android:id="@+id/imageView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/imageView11"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_wind"
+                            app:tint="@color/less_white" />
+
+                        <TextView
+                            android:id="@+id/textView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:text="Humidity"
+                            android:textColor="@color/less_white"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView12"
+                            app:layout_constraintStart_toStartOf="@+id/imageView12"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+
+                        <TextView
+                            android:id="@+id/humidity_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="40%"
+                            android:textColor="@color/less_white"
+                            app:layout_constraintEnd_toEndOf="@+id/textView10"
+                            app:layout_constraintStart_toStartOf="@+id/textView10"
+                            app:layout_constraintTop_toBottomOf="@+id/textView10"
+                            tools:text="40%" />
+
+                        <TextView
+                            android:id="@+id/textView12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:text="Pressure"
+                            android:textColor="@color/less_white"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView11"
+                            app:layout_constraintStart_toStartOf="@+id/imageView11"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+
+                        <TextView
+                            android:id="@+id/pressure_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="1200hPa"
+                            android:textColor="@color/less_white"
+                            app:layout_constraintEnd_toEndOf="@+id/textView12"
+                            app:layout_constraintStart_toStartOf="@+id/textView12"
+                            app:layout_constraintTop_toBottomOf="@+id/textView12"
+                            tools:text="1740hPa" />
+
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:text="Wind speed"
+                            android:textColor="@color/less_white"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView10"
+                            app:layout_constraintStart_toStartOf="@+id/imageView10"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
+                        <TextView
+                            android:id="@+id/wind_speed_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="30m/s"
+                            android:textColor="@color/less_white"
+                            app:layout_constraintEnd_toEndOf="@+id/textView14"
+                            app:layout_constraintStart_toStartOf="@+id/textView14"
+                            app:layout_constraintTop_toBottomOf="@+id/textView14"
+                            tools:text="30m/s" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_hourly_forecast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+                tools:listitem="@layout/item_hourly_forecast">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_daily"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:nestedScrollingEnabled="false"
+                android:background="@drawable/rectangular_bg"
+                android:backgroundTint="@color/background_light"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_hourly_forecast"
+                tools:listitem="@layout/item_weekly_forecast" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+         />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_hourly_forecast"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialCardView"
-            tools:listitem="@layout/item_hourly_forecast">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_daily"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/rectangular_bg"
-            android:backgroundTint="@color/background_light"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_hourly_forecast"
-            tools:listitem="@layout/item_weekly_forecast" />
+</FrameLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
 
 
