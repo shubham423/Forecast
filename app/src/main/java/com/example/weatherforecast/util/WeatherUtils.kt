@@ -109,12 +109,12 @@ fun WeatherIconView.getIconResources(context: Context, condition: String?) {
 }
 
 fun getDateTimeFormatted(s: String): String? {
-    try {
+    return try {
         val sdf = SimpleDateFormat("MM/dd/yyyy")
         val netDate = Date(s.toLong() * 1000)
-        return sdf.format(netDate)
+        sdf.format(netDate)
     } catch (e: Exception) {
-        return e.toString()
+        e.toString()
     }
 }
 
