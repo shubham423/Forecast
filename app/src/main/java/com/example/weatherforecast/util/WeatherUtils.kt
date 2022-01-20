@@ -118,6 +118,12 @@ fun getDateTimeFormatted(s: String): String? {
     }
 }
 
+fun convertLongToTime(time: Long): String {
+    val date = Date(time)
+    val format = SimpleDateFormat("yyyy.MM.dd HH:mm")
+    return format.format(date)
+}
+
 fun getTemp(temp: Int): String {
     return temp?.toString() + "°C"
 }

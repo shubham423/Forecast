@@ -31,9 +31,9 @@ class HourlyWeatherAdapter(val context: Context): RecyclerView.Adapter<HourlyWea
             if (hourly != null) {
                 binding.temp.text= getTemp(hourly.temp.minus(273).toInt())
             }
-            if (hourly != null) {
-                binding.time.text= getDateTimeFormatted(hourly.dt.toString())
-            }
+//            if (hourly != null) {
+//                binding.time.text= getDateTimeFormatted(hourly.dt.toString().substring(0,hourly.dt.toString().length-3))
+//            }
         }
 
     }
