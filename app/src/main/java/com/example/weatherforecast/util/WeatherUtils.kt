@@ -107,6 +107,31 @@ fun WeatherIconView.getIconResources(context: Context, condition: String?) {
     }
 
 }
+fun formatTempForDisplay(temp: Float, tempDisplaySetting: TempDisplaySetting) : String {
+    return when (tempDisplaySetting) {
+        TempDisplaySetting.Fahrenheit -> String.format("%.2f F°", temp)
+        TempDisplaySetting.Celsius -> {
+            val temp = (temp - 32f) * (5f/9f)
+            String.format("%.2f C°", temp)
+        }
+    }
+}
+
+enum class TempDisplaySetting {
+    Fahrenheit, Celsius
+}
+class TempDisplaySettingManager(context: Context) {
+    private val preferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+
+    fun updateSetting(setting: TempDisplaySetting) {
+        preferences.edit().putString("key_temp_display", setting.name).commit()
+    }
+
+    fun getTempDisplaySetting() : TempDisplaySetting {
+        val settingValue = preferences.getString("key_temp_display", TempDisplaySetting.Fahrenheit.name) ?: TempDisplaySetting.Fahrenheit.name
+        return TempDisplaySetting.valueOf(settingValue)
+    }
+}
 
 fun getDateTimeFormatted(s: String): String? {
     return try {

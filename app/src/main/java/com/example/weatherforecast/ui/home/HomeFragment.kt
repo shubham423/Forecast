@@ -7,9 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.weatherforecast.databinding.FragmentHomeBinding
-import com.example.weatherforecast.util.Resource
-import com.example.weatherforecast.util.getIconResources
-import com.example.weatherforecast.util.getTemp
+import com.example.weatherforecast.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,6 +21,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var hourlyWeatherAdapter: HourlyWeatherAdapter
     private lateinit var futureWeatherAdapter: FutureWeatherAdapter
+    private lateinit var tempDisplaySettingManager: TempDisplaySettingManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +37,8 @@ class HomeFragment : Fragment() {
         viewModel.getWeatherDataByLatLong("28.689429027481445", "77.28186230476864", "standard")
         viewModel.getWeatherDataByCityName("delhi")
         initObservers()
+        tempDisplaySettingManager= TempDisplaySettingManager(requireContext())
+        tempDisplaySettingManager.updateSetting(TempDisplaySetting.Celsius)
 
     }
 
@@ -50,8 +51,13 @@ class HomeFragment : Fragment() {
                     it.apply {
                         binding.weatherInText.text = data?.name
                         binding.dateText.text = currentSystemTime()
+
                         binding.weatherTemperature.text =
-                            data?.main?.temp?.minus(273)?.toInt()?.let { it1 -> getTemp(it1) }
+                            data?.main?.temp?.minus(273)?.toInt()?.toFloat()?.let { it1 ->
+                                formatTempForDisplay(
+                                    it1,tempDisplaySetting = tempDisplaySettingManager.getTempDisplaySetting())
+                            }
+//                            data?.main?.temp?.minus(273)?.toInt()?.let { it1 -> getTemp(it1) }
 //                        binding.weatherMinMax.text =
 //                            data?.main?.tempMax?.minus(273)?.let { it1 -> getTemp(it1.toInt()) } + "/" + data?.main?.tempMin?.minus(
 //                                273
