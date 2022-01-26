@@ -52,11 +52,8 @@ class HomeFragment : Fragment() {
                         binding.weatherInText.text = data?.name
                         binding.dateText.text = currentSystemTime()
 
-                        binding.weatherTemperature.text =
-                            data?.main?.temp?.minus(273)?.toInt()?.toFloat()?.let { it1 ->
-                                formatTempForDisplay(
-                                    it1,tempDisplaySetting = tempDisplaySettingManager.getTempDisplaySetting())
-                            }
+                        binding.weatherTemperature.text = data?.main?.temp?.minus(273)
+                            ?.let { it1 -> getTemp(it1.toInt()) }
 //                            data?.main?.temp?.minus(273)?.toInt()?.let { it1 -> getTemp(it1) }
 //                        binding.weatherMinMax.text =
 //                            data?.main?.tempMax?.minus(273)?.let { it1 -> getTemp(it1.toInt()) } + "/" + data?.main?.tempMin?.minus(
